@@ -1,0 +1,6 @@
+# Exclude all files
+*
+
+#Not all files
+!.gitignore
+!.bashrc*
