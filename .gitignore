@@ -4,3 +4,5 @@
 #Not all files
 !.gitignore
 !.bashrc*
+
+*.swp
