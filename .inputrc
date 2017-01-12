@@ -1,0 +1,5 @@
+TAB:menu-complete
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
