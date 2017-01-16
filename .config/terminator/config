@@ -1,0 +1,20 @@
+[global_config]
+  borderless = True
+  title_receive_bg_color = "#c80003"
+  title_transmit_bg_color = "#0076c9"
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_image = None
+    cursor_color = "#aaaaaa"
+    foreground_color = "#19f1fc"
+    palette = "#ec8714:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#848d7a:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
