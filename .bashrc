@@ -7,6 +7,7 @@
 [[ -f ~/.bashrc_colors ]] && source ~/.bashrc_colors
 [[ $- != *i* ]] && return
 
+alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias vi='vim'
 alias ll='ls -lart'
