@@ -10,10 +10,18 @@ main:
 	@echo "    Video -> /mnt/Video/"
 	@echo ""
 
-genlinks: main
+gen-user-dir: main
 	@read -p "Do you want to create the links? [y/n]: " answer; \
-		if [ $$answer == "y" ]; then \
-			echo "Creating links" ; \
+		if [ $$answer == "y" ] && [ -d /mnt/Data ]; then \
+			echo "Generating directory structure..." ; \
+			if [ ! -d /mnt/Data/Descargas ]; then mkdir /mnt/Data/Descargas ; fi ; \
+			if [ ! -d /mnt/Data/Documentos ]; then mkdir /mnt/Data/Documentos ; fi ; \
+			if [ ! -d /mnt/Data/Imagenes ]; then mkdir /mnt/Data/Imagenes ; fi ; \
+			if [ ! -d /mnt/Data/Musica ]; then mkdir /mnt/Data/Musica ; fi ; \
+			if [ ! -d /mnt/Data/Publico ]; then mkdir /mnt/Data/Publico ; fi ; \
+			if [ ! -d /mnt/Data/Videos ]; then mkdir /mnt/Data/Videos ; fi ; \
+			echo "Done" ; \
+			echo "Creating links..." ; \
 			if [ ! -h ~/Data ]; then ln -s /mnt/Data/ ~/Data ; fi ; \
 			if [ ! -h ~/Descargas ]; then ln -s /mnt/Data/Descargas/ ~/Descargas ; fi ; \
 			if [ ! -h ~/Documentos ]; then ln -s /mnt/Data/Documentos/ ~/Documentos ; fi ; \
@@ -24,12 +32,12 @@ genlinks: main
 		  echo "Done" ; \
 		else \
 			echo "Aborted" ; \
-		fi ; 
+		fi
 
 clean: main
 	@read -p "Do you want to delete the links? [y/n]: " answer; \
 		if [ $$answer == "y" ]; then \
-			echo "Deleting links" ; \
+			echo "Deleting links..." ; \
 			if [ -h ~/Data ]; then rm ~/Data ; fi ; \
 			if [ -h ~/Descargas ]; then rm ~/Descargas ; fi ; \
 			if [ -h ~/Documentos ];then rm ~/Documentos ; fi ; \
