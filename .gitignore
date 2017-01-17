@@ -6,6 +6,6 @@
 !.bashrc*
 
 # Not all folders
-!.gen_home_conf
+!hola1
 
 *.swp
