@@ -29,7 +29,7 @@ gen-user-dir: main
 			if [ ! -h ~/Musica ]; then ln -s /mnt/Data/Musica/ ~/Musica ; fi ; \
 			if [ ! -h ~/Publico ]; then ln -s /mnt/Data/Publico/ ~/Publico ; fi ; \
 			if [ ! -h ~/Videos ]; then ln -s /mnt/Data/Videos/ ~/Videos ; fi ; \
-		  echo "Done" ; \
+			echo "Done" ; \
 		else \
 			echo "Aborted" ; \
 		fi
