@@ -1,8 +1,11 @@
-# Exclude all files
+# Exclude all files and folders
 *
 
-#Not all files
+# Not all files
 !.gitignore
 !.bashrc*
+
+# Not all folders
+!hola1
 
 *.swp
