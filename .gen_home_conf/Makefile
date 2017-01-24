@@ -2,12 +2,13 @@ main:
 	@echo "This script creates/deletes the following symbolic links in your home folder: "
 	@echo ""
 	@echo "    Data -> /mnt/Data/"
-	@echo "    Descargas -> /mnt/Descargas/"
+	@echo "    Descargas -> /mnt/Data/Descargas/"
 	@echo "    Documentos -> /mnt/Data/Documentos/"
-	@echo "    Imagenes -> /mnt/Imagenes/"
-	@echo "    Musica -> /mnt/Musica/"
-	@echo "    Publico -> /mnt/Publico/"
-	@echo "    Video -> /mnt/Video/"
+	@echo "    Imagenes -> /mnt/Data/Imagenes/"
+	@echo "    Imagenes -> /mnt/Data/Libros/"
+	@echo "    Musica -> /mnt/Data/Musica/"
+	@echo "    Publico -> /mnt/Data/Publico/"
+	@echo "    Video -> /mnt/Data/Video/"
 	@echo ""
 
 gen-user-dir: main
@@ -17,6 +18,7 @@ gen-user-dir: main
 			if [ ! -d /mnt/Data/Descargas ]; then mkdir /mnt/Data/Descargas ; fi ; \
 			if [ ! -d /mnt/Data/Documentos ]; then mkdir /mnt/Data/Documentos ; fi ; \
 			if [ ! -d /mnt/Data/Imagenes ]; then mkdir /mnt/Data/Imagenes ; fi ; \
+			if [ ! -d /mnt/Data/Libros ]; then mkdir /mnt/Data/Libros ; fi ; \
 			if [ ! -d /mnt/Data/Musica ]; then mkdir /mnt/Data/Musica ; fi ; \
 			if [ ! -d /mnt/Data/Publico ]; then mkdir /mnt/Data/Publico ; fi ; \
 			if [ ! -d /mnt/Data/Videos ]; then mkdir /mnt/Data/Videos ; fi ; \
@@ -26,6 +28,7 @@ gen-user-dir: main
 			if [ ! -h ~/Descargas ]; then ln -s /mnt/Data/Descargas/ ~/Descargas ; fi ; \
 			if [ ! -h ~/Documentos ]; then ln -s /mnt/Data/Documentos/ ~/Documentos ; fi ; \
 			if [ ! -h ~/Imagenes ]; then ln -s /mnt/Data/Imagenes/ ~/Imagenes ; fi ; \
+			if [ ! -h ~/Libros ]; then ln -s /mnt/Data/Libros/ ~/Libros ; fi ; \
 			if [ ! -h ~/Musica ]; then ln -s /mnt/Data/Musica/ ~/Musica ; fi ; \
 			if [ ! -h ~/Publico ]; then ln -s /mnt/Data/Publico/ ~/Publico ; fi ; \
 			if [ ! -h ~/Videos ]; then ln -s /mnt/Data/Videos/ ~/Videos ; fi ; \
@@ -42,6 +45,7 @@ clean: main
 			if [ -h ~/Descargas ]; then rm ~/Descargas ; fi ; \
 			if [ -h ~/Documentos ];then rm ~/Documentos ; fi ; \
 			if [ -h ~/Imagenes ]; then rm ~/Imagenes ; fi ; \
+			if [ -h ~/Libros ]; then rm ~/Libros ; fi ; \
 			if [ -h ~/Musica ]; then rm ~/Musica ; fi ; \
 			if [ -h ~/Publico ]; then rm ~/Publico ; fi ;\
 			if [ -h ~/Videos ]; then rm ~/Videos ; fi ;\
