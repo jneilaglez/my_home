@@ -66,8 +66,14 @@ gen-git-config:
 				echo "Aborted" ; \
 			fi \
 		else \
-			echo "Aborted" ; \
-		fi \
+			read -p "Would you like to configure pretty log graph for git? [y/n]: " answer ; \
+			if [ $$answer == "y" ]; then \
+				echo "Configuring pretty git log graph..." ; \
+				git config --global alias.log-graph "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %C(reset)%C(bold magenta)[%an] %C(reset)' --all" ; \
+			else \
+				echo "Aborted" ; \
+			fi \
+		fi
 
 clean: main
 	@read -p "Do you want to delete the links? [y/n]: " answer ; \
