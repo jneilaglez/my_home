@@ -13,7 +13,7 @@ main:
 
 gen-user-dir: main
 	@read -p "Do you want to create the links? [y/n]: " answer ; \
-		if [ $$answer == "y" ] && [ -d /mnt/Data ]; then \
+		if [ "$$answer" == "y" ] && [ -d /mnt/Data ]; then \
 			echo "Generating directory structure..." ; \
 			if [ ! -d /mnt/Data/Descargas ]; then mkdir /mnt/Data/Descargas ; fi ; \
 			if [ ! -d /mnt/Data/Documentos ]; then mkdir /mnt/Data/Documentos ; fi ; \
@@ -39,14 +39,14 @@ gen-user-dir: main
 
 gen-git-config:
 	@if [ -f ~/.gitconfig ]; then read -p "File exist, Would you like to overwrite it? [y/n]: " answer ; fi ; \
-		if [ $$answer == "y" ]; then \
+		if [ "$$answer" == "y" ]; then \
 			read -p "What user do you like to add in global git configuration (~/.gitconfig)?: " user ; \
 			read -p "What email do you like to add in global git configuration (~/.gitconfig): " email ; \
 			read -p "What editor do you like to add in global git configuration (~/.gitconfig): " editor ; \
 			echo "" ; \
 			if $$(which git > /dev/null 2>&1) && $$(which $$editor > /dev/null 2>&1); then \
 				if [[ $$user =~ ^[A-Za-z[:space:]áéíñóúüÁÉÍÑÓÚÜ]*$$ && $$user != "" \
-					 && $$email =~  ^[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+(\.[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$$ && $email != "" \
+					 && $$email =~  ^[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+(\.[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$$ && $$email != "" \
 					 ]]; then \
 					echo "Configuring global username for git... " ; \
 					echo "git config --global user.name $"$$user" ; \
@@ -71,7 +71,7 @@ gen-git-config:
 				echo "Aborted" ; \
 		fi
 	@read -p "Would you like to configure pretty log graph for git? [y/n]: " answer ; \
-		if [ $$answer == "y" ]; then \
+		if [ "$$answer" == "y" ]; then \
 			echo "Configuring pretty git log graph..." ; \
 			git config --global alias.log-graph "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %C(reset)%C(bold magenta)[%an] %C(reset)' --all" ; \
 		else \
@@ -80,7 +80,7 @@ gen-git-config:
 
 clean: main
 	@read -p "Do you want to delete the links? [y/n]: " answer ; \
-		if [ $$answer == "y" ]; then \
+		if [ "$$answer" == "y" ]; then \
 			echo "Deleting links..." ; \
 			if [ -h ~/Data ]; then rm ~/Data ; fi ; \
 			if [ -h ~/Descargas ]; then rm ~/Descargas ; fi ; \
