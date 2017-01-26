@@ -12,7 +12,7 @@ main:
 	@echo ""
 
 gen-user-dir: main
-	@read -p "Do you want to create the links? [y/n]: " answer; \
+	@read -p "Do you want to create the links? [y/n]: " answer ; \
 		if [ $$answer == "y" ] && [ -d /mnt/Data ]; then \
 			echo "Generating directory structure..." ; \
 			if [ ! -d /mnt/Data/Descargas ]; then mkdir /mnt/Data/Descargas ; fi ; \
@@ -37,8 +37,40 @@ gen-user-dir: main
 			echo "Aborted" ; \
 		fi
 
+gen-git-config:
+	@if [ -f ~/.gitconfig ]; then read -p "File exist, Would you like to overwrite it? [y/n]: " answer ; fi ; \
+		if [ $$answer == "y" ]; then \
+			read -p "What user do you like to add in global git configuration (~/.gitconfig)?: " user ; \
+			read -p "What email do you like to add in global git configuration (~/.gitconfig): " email ; \
+			read -p "What editor do you like to add in global git configuration (~/.gitconfig): " editor ; \
+			echo "" ; \
+			if $$(which git > /dev/null 2>&1) && $$(which $$editor > /dev/null 2>&1); then \
+				if [[ $$user =~ ^[A-Za-z[:space:]áéíñóúüÁÉÍÑÓÚÜ]*$$ && $$user != "" \
+					 && $$email =~  ^[a-z0-9,!i$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+(\.[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$$ && $email != "" \
+					 ]]; then \
+					echo "Configuring global username for git... " ; \
+					echo "git config --global user.name $"$$user" ; \
+					git config --global user.name "$$user" ; \
+					echo "git config --global user.email $"$$email" ; \
+					git config --global user.email $$email ; \
+					echo "git config --global core.editor $"$$editor" ; \
+					git config --global core.editor $$editor ; \
+					echo "Done" ; \
+				else \
+					echo "User and email cannot be empty" ; \
+					echo "Aborted" ; \
+				fi \
+			else \
+				echo "User and email cannot be empty" ; \
+				echo "You must install git and $$([[ $$editor == "" ]] && echo $$editor | echo "your favourite editor") for this process" ; \
+				echo "Aborted" ; \
+			fi \
+		else \
+			echo "Aborted" ; \
+		fi \
+
 clean: main
-	@read -p "Do you want to delete the links? [y/n]: " answer; \
+	@read -p "Do you want to delete the links? [y/n]: " answer ; \
 		if [ $$answer == "y" ]; then \
 			echo "Deleting links..." ; \
 			if [ -h ~/Data ]; then rm ~/Data ; fi ; \
@@ -53,3 +85,4 @@ clean: main
 		else \
 			echo "Aborted" ; \
 		fi
+
