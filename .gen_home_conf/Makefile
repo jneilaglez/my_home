@@ -1,3 +1,6 @@
+RED="\e[1;31m"
+NONE="\e[0m"
+
 main:
 	@echo "This script creates/deletes the following symbolic links in your home folder: "
 	@echo ""
@@ -34,7 +37,7 @@ gen-user-dir: main
 			if [ ! -h ~/Videos ]; then ln -s /mnt/Data/Videos/ ~/Videos ; fi ; \
 			echo "Done" ; \
 		else \
-			echo "Aborted" ; \
+			echo -e ""${RED}"Aborted"${NONE}"" ; \
 		fi
 
 gen-git-config:
@@ -57,25 +60,25 @@ gen-git-config:
 					git config --global core.editor $$editor ; \
 					echo "Done" ; \
 				else \
-					echo "User and email cannot be empty and they have to be in the next format:" ; \
-					echo "    User: only Spanish characters and blank spaces, ej - Jhon Doé" ; \
-					echo "    Email: <characters, numbers and other special chars>@<characters and numbers>.<characters, min length 2. ej - io>" ; \
-					echo "Aborted" ; \
+					echo -e ""${RED}"User and email have to be in the next format:" ; \
+					echo -e "    User: only Spanish characters and blank spaces, ej - Jhon Doé" ; \
+					echo -e "    Email: <characters, numbers and other special chars>@<characters and numbers>.<characters, min length 2. ej - io>, ej - myhome@myhome.io" ; \
+					echo -e "Aborted"${NONE}"" ; \
 				fi \
 			else \
-				echo "User and email cannot be empty" ; \
-				echo "You must install git and $$([[ $$editor == "" ]] && echo $$editor | echo "your favourite editor") for this process" ; \
-				echo "Aborted" ; \
+				echo -e ""${RED}"User and email cannot be empty" ; \
+				echo -e "You must install git and $$([[ $$editor == "" ]] && echo $$editor | echo "your favourite editor") for this process" ; \
+				echo -e "Aborted"${NONE}"" ; \
 			fi \
 		else \
-				echo "Aborted" ; \
+			echo -e ""${RED}"Aborted"${NONE}"" ; \
 		fi
 	@read -p "Would you like to configure pretty log graph for git? [y/n]: " answer ; \
 		if [ "$$answer" == "y" ]; then \
 			echo "Configuring pretty git log graph..." ; \
 			git config --global alias.log-graph "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %C(reset)%C(bold magenta)[%an] %C(reset)' --all" ; \
 		else \
-			echo "Aborted" ; \
+			echo -e ""${RED}"Aborted"${NONE}"" ; \
 		fi
 
 clean: main
@@ -92,6 +95,6 @@ clean: main
 			if [ -h ~/Videos ]; then rm ~/Videos ; fi ;\
 			echo "Done" ; \
 		else \
-			echo "Aborted" ; \
+			echo -e ""${RED}"Aborted"${NONE}"" ; \
 		fi
 
