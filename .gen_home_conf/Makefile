@@ -46,7 +46,7 @@ gen-git-config:
 			echo "" ; \
 			if $$(which git > /dev/null 2>&1) && $$(which $$editor > /dev/null 2>&1); then \
 				if [[ $$user =~ ^[A-Za-z[:space:]áéíñóúüÁÉÍÑÓÚÜ]*$$ && $$user != "" \
-					 && $$email =~  ^[a-z0-9,!i$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+(\.[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$$ && $email != "" \
+					 && $$email =~  ^[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+(\.[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$$ && $email != "" \
 					 ]]; then \
 					echo "Configuring global username for git... " ; \
 					echo "git config --global user.name $"$$user" ; \
@@ -57,7 +57,9 @@ gen-git-config:
 					git config --global core.editor $$editor ; \
 					echo "Done" ; \
 				else \
-					echo "User and email cannot be empty" ; \
+					echo "User and email cannot be empty and they have to be in the next format:" ; \
+					echo "    User: only Spanish characters and blank spaces, ej - Jhon Doé" ; \
+					echo "    Email: <characters, numbers and other special chars>@<characters and numbers>.<characters, min length 2. ej - io>" ; \
 					echo "Aborted" ; \
 				fi \
 			else \
@@ -66,13 +68,14 @@ gen-git-config:
 				echo "Aborted" ; \
 			fi \
 		else \
-			read -p "Would you like to configure pretty log graph for git? [y/n]: " answer ; \
-			if [ $$answer == "y" ]; then \
-				echo "Configuring pretty git log graph..." ; \
-				git config --global alias.log-graph "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %C(reset)%C(bold magenta)[%an] %C(reset)' --all" ; \
-			else \
 				echo "Aborted" ; \
-			fi \
+		fi
+	@read -p "Would you like to configure pretty log graph for git? [y/n]: " answer ; \
+		if [ $$answer == "y" ]; then \
+			echo "Configuring pretty git log graph..." ; \
+			git config --global alias.log-graph "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %C(reset)%C(bold magenta)[%an] %C(reset)' --all" ; \
+		else \
+			echo "Aborted" ; \
 		fi
 
 clean: main
