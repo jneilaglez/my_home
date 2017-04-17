@@ -7,11 +7,11 @@ main:
 	@echo "    Data -> /mnt/Data/"
 	@echo "    Descargas -> /mnt/Data/Descargas/"
 	@echo "    Documentos -> /mnt/Data/Documentos/"
-	@echo "    Imagenes -> /mnt/Data/Imagenes/"
-	@echo "    Imagenes -> /mnt/Data/Libros/"
-	@echo "    Musica -> /mnt/Data/Musica/"
-	@echo "    Publico -> /mnt/Data/Publico/"
-	@echo "    Video -> /mnt/Data/Video/"
+	@echo "    Imágenes -> /mnt/Data/Imágenes/"
+	@echo "    Imágenes -> /mnt/Data/Libros/"
+	@echo "    Música -> /mnt/Data/Música/"
+	@echo "    Público -> /mnt/Data/Público/"
+	@echo "    Videos -> /mnt/Data/Vídeos/"
 	@echo ""
 
 gen-user-dir: main
@@ -20,21 +20,21 @@ gen-user-dir: main
 			echo "Generating directory structure..." ; \
 			if [ ! -d /mnt/Data/Descargas ]; then mkdir /mnt/Data/Descargas ; fi ; \
 			if [ ! -d /mnt/Data/Documentos ]; then mkdir /mnt/Data/Documentos ; fi ; \
-			if [ ! -d /mnt/Data/Imagenes ]; then mkdir /mnt/Data/Imagenes ; fi ; \
+			if [ ! -d /mnt/Data/Imágenes ]; then mkdir /mnt/Data/Imágenes ; fi ; \
 			if [ ! -d /mnt/Data/Libros ]; then mkdir /mnt/Data/Libros ; fi ; \
-			if [ ! -d /mnt/Data/Musica ]; then mkdir /mnt/Data/Musica ; fi ; \
-			if [ ! -d /mnt/Data/Publico ]; then mkdir /mnt/Data/Publico ; fi ; \
-			if [ ! -d /mnt/Data/Videos ]; then mkdir /mnt/Data/Videos ; fi ; \
+			if [ ! -d /mnt/Data/Música ]; then mkdir /mnt/Data/Música ; fi ; \
+			if [ ! -d /mnt/Data/Público ]; then mkdir /mnt/Data/Público ; fi ; \
+			if [ ! -d /mnt/Data/Vídeos ]; then mkdir /mnt/Data/Vídeos ; fi ; \
 			echo "Done" ; \
 			echo "Creating links..." ; \
 			if [ ! -h ~/Data ]; then ln -s /mnt/Data/ ~/Data ; fi ; \
 			if [ ! -h ~/Descargas ]; then ln -s /mnt/Data/Descargas/ ~/Descargas ; fi ; \
 			if [ ! -h ~/Documentos ]; then ln -s /mnt/Data/Documentos/ ~/Documentos ; fi ; \
-			if [ ! -h ~/Imagenes ]; then ln -s /mnt/Data/Imagenes/ ~/Imagenes ; fi ; \
+			if [ ! -h ~/Imágenes ]; then ln -s /mnt/Data/Imágenes/ ~/Imágenes ; fi ; \
 			if [ ! -h ~/Libros ]; then ln -s /mnt/Data/Libros/ ~/Libros ; fi ; \
-			if [ ! -h ~/Musica ]; then ln -s /mnt/Data/Musica/ ~/Musica ; fi ; \
-			if [ ! -h ~/Publico ]; then ln -s /mnt/Data/Publico/ ~/Publico ; fi ; \
-			if [ ! -h ~/Videos ]; then ln -s /mnt/Data/Videos/ ~/Videos ; fi ; \
+			if [ ! -h ~/Música ]; then ln -s /mnt/Data/Música/ ~/Música ; fi ; \
+			if [ ! -h ~/Público ]; then ln -s /mnt/Data/Público/ ~/Público ; fi ; \
+			if [ ! -h ~/Vídeos ]; then ln -s /mnt/Data/Vídeos/ ~/Vídeos ; fi ; \
 			echo "Done" ; \
 		else \
 			echo -e ""${RED}"Aborted"${NONE}"" ; \
@@ -89,11 +89,11 @@ clean: main
 			if [ -h ~/Data ]; then rm ~/Data ; fi ; \
 			if [ -h ~/Descargas ]; then rm ~/Descargas ; fi ; \
 			if [ -h ~/Documentos ];then rm ~/Documentos ; fi ; \
-			if [ -h ~/Imagenes ]; then rm ~/Imagenes ; fi ; \
+			if [ -h ~/Imágenes ]; then rm ~/Imágenes ; fi ; \
 			if [ -h ~/Libros ]; then rm ~/Libros ; fi ; \
-			if [ -h ~/Musica ]; then rm ~/Musica ; fi ; \
-			if [ -h ~/Publico ]; then rm ~/Publico ; fi ;\
-			if [ -h ~/Videos ]; then rm ~/Videos ; fi ;\
+			if [ -h ~/Música ]; then rm ~/Música ; fi ; \
+			if [ -h ~/Público ]; then rm ~/Público ; fi ;\
+			if [ -h ~/Vídeos ]; then rm ~/Vídeos ; fi ;\
 			echo "Done" ; \
 		else \
 			echo -e ""${RED}"Aborted"${NONE}"" ; \
