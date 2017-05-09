@@ -18,14 +18,23 @@ colorscheme jellybeans
 set cindent
 set tabstop=2
 set shiftwidth=2
-set expandtab
 filetype plugin indent on
 syntax on
 set mouse=a
 set smarttab
 set number
+"Show hide caracters (do not use expandtab)"
+set list
+set lcs+=tab:▸·,space:·,nbsp:.
+"Autocomplet for command menu"
+set wildmenu
+"Highlight matching [{}]"
+set showmatch
+"Highlight searchs"
+set hlsearch
 
 "NERDTree"
+"
 map <F2> :NERDTreeToggle<CR>
 
 "TagBar"
@@ -36,7 +45,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_python_checkers = ['python']
+"let g:syntastic_python_checkers = ['python']"
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
