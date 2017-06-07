@@ -21,6 +21,7 @@ set shiftwidth=2
 filetype plugin indent on
 syntax on
 set mouse=a
+set expandtab
 set smarttab
 set number
 "Show hide caracters (do not use expandtab)"
