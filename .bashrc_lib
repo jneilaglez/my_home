@@ -4,7 +4,7 @@ function is_git ()
 {
   if [[ -d .git || $(pwd) =~ .*'/.git'.* || $(git rev-parse --is-inside-work-tree 2>&1) == "true" ]]
   then
-    echo -e [$(parse_git_branch)$(git_stash)]
+    echo -e [$(parse_git_branch)]
   else
     echo ""
   fi
