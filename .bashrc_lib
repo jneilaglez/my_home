@@ -54,6 +54,17 @@ function git_stash {
   local STASH=`git stash list | wc -l`
   if [ $STASH -gt 0 ]
   then
-    echo "|$STASH"
+    echo "|♻$STASH"
   fi
+}
+
+function validate_last_command {
+  LAST=$?
+  if [ $LAST != "0" ]
+  then
+    LAST="✖"
+  else
+    LAST="✔"
+  fi
+  echo $LAST
 }
