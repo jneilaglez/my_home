@@ -41,7 +41,7 @@ gen-user-dir: main
 		fi
 
 gen-git-config:
-	@if [ -f ~/.gitconfig ]; then read -p "File exist, Would you like to overwrite it? [y/n]: " answer ; fi ; \
+	@if [ -f ~/.gitconfig ] || [ ! -f ~/.gitconfig ]; then read -p "Creating '~/.gitconfig' file, Would you like to create/overwrite it? [y/n]: " answer ; fi ; \
 		if [ "$$answer" == "y" ]; then \
 			read -p "What user do you like to add in global git configuration (~/.gitconfig)?: " user ; \
 			read -p "What email do you like to add in global git configuration (~/.gitconfig): " email ; \
