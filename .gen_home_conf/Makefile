@@ -76,7 +76,7 @@ gen-user-dir: main
 			echo -e ""${RED}"Aborted"${NONE}"" ; \
 		fi
 
-gen-git-config:
+gen-git-config-global:
 	@$(call git_config,global)
 	@read -p "Would you like to configure pretty log graph for git? [y/n]: " answer ; \
 		if [ "$$answer" == "y" ]; then \
