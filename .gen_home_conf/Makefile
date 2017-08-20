@@ -1,6 +1,42 @@
 RED="\e[1;31m"
 NONE="\e[0m"
 
+define git_config
+	@read -p "Creating/Overwriting git $(1) configuration, Would you like to create/overwrite it? [y/n]: " answer ; \
+		if [ "$$answer" == "y" ]; then \
+			read -p "What user do you like to add in local git configuration?: " user ; \
+			read -p "What email do you like to add in local git configuration?: " email ; \
+			read -p "What editor do you like to add in local git configuration?: " editor ; \
+			echo "" ; \
+			if $$(which git > /dev/null 2>&1) && $$(which $$editor > /dev/null 2>&1); then \
+				if [[ $$user =~ ^[A-Za-z[:space:]áéíñóúüÁÉÍÑÓÚÜ]*$$ && $$user != "" \
+					 && $$email =~  ^[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+(\.[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$$ && $$email != "" \
+					 ]]; then \
+					echo "Configuring $(1) username for git... " ; \
+					echo "git config --$(1) user.name $"$$user" ; \
+					git config --$(1) user.name "$$user" ; \
+					echo "git config --$(1) user.email $"$$email" ; \
+					git config --$(1) user.email $$email ; \
+					echo "git config --$(1) core.editor $"$$editor" ; \
+					git config --$(1) core.editor $$editor ; \
+					echo "Done" ; \
+				else \
+					echo -e ""${RED}"User and email have to be in the next format:" ; \
+					echo -e "    User: only Spanish characters and blank spaces, ej - Jhon Doé" ; \
+					echo -e "    Email: <characters, numbers and other special chars>@<characters and numbers>.<characters, min length 2. ej - io>, ej - myhome@myhome.io" ; \
+					echo -e "Aborted"${NONE}"" ; \
+				fi \
+			else \
+				echo -e ""${RED}"User and email cannot be empty" ; \
+				echo -e "You must install git and $$([[ $$editor == "" ]] && echo $$editor | echo "your favourite editor") for this process" ; \
+				echo -e "Aborted"${NONE}"" ; \
+			fi \
+		else \
+			echo -e ""${RED}"Aborted"${NONE}"" ; \
+		fi
+endef
+
+
 main:
 	@echo "This script creates/deletes the following symbolic links in your home folder: "
 	@echo ""
@@ -41,38 +77,7 @@ gen-user-dir: main
 		fi
 
 gen-git-config:
-	@if [ -f ~/.gitconfig ] || [ ! -f ~/.gitconfig ]; then read -p "Creating '~/.gitconfig' file, Would you like to create/overwrite it? [y/n]: " answer ; fi ; \
-		if [ "$$answer" == "y" ]; then \
-			read -p "What user do you like to add in global git configuration (~/.gitconfig)?: " user ; \
-			read -p "What email do you like to add in global git configuration (~/.gitconfig): " email ; \
-			read -p "What editor do you like to add in global git configuration (~/.gitconfig): " editor ; \
-			echo "" ; \
-			if $$(which git > /dev/null 2>&1) && $$(which $$editor > /dev/null 2>&1); then \
-				if [[ $$user =~ ^[A-Za-z[:space:]áéíñóúüÁÉÍÑÓÚÜ]*$$ && $$user != "" \
-					 && $$email =~  ^[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+(\.[a-z0-9,!$#\$%&$'\*\+/=\?\^_\`\{\|}~-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*\.([a-z]{2,})$$ && $$email != "" \
-					 ]]; then \
-					echo "Configuring global username for git... " ; \
-					echo "git config --global user.name $"$$user" ; \
-					git config --global user.name "$$user" ; \
-					echo "git config --global user.email $"$$email" ; \
-					git config --global user.email $$email ; \
-					echo "git config --global core.editor $"$$editor" ; \
-					git config --global core.editor $$editor ; \
-					echo "Done" ; \
-				else \
-					echo -e ""${RED}"User and email have to be in the next format:" ; \
-					echo -e "    User: only Spanish characters and blank spaces, ej - Jhon Doé" ; \
-					echo -e "    Email: <characters, numbers and other special chars>@<characters and numbers>.<characters, min length 2. ej - io>, ej - myhome@myhome.io" ; \
-					echo -e "Aborted"${NONE}"" ; \
-				fi \
-			else \
-				echo -e ""${RED}"User and email cannot be empty" ; \
-				echo -e "You must install git and $$([[ $$editor == "" ]] && echo $$editor | echo "your favourite editor") for this process" ; \
-				echo -e "Aborted"${NONE}"" ; \
-			fi \
-		else \
-			echo -e ""${RED}"Aborted"${NONE}"" ; \
-		fi
+	@$(call git_config,global)
 	@read -p "Would you like to configure pretty log graph for git? [y/n]: " answer ; \
 		if [ "$$answer" == "y" ]; then \
 			echo "Configuring pretty git log graph..." ; \
@@ -81,6 +86,9 @@ gen-git-config:
 		else \
 			echo -e ""${RED}"Aborted"${NONE}"" ; \
 		fi
+
+gen-git-config-local:
+	$(call git_config,local)
 
 clean: main
 	@read -p "Do you want to delete the links? [y/n]: " answer ; \
