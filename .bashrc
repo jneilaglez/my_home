@@ -7,6 +7,9 @@
 [[ -f ~/.bashrc_colors ]] && source ~/.bashrc_colors
 [[ $- != *i* ]] && return
 
+# virtualenv variable
+export WORKON_HOME=~/.virtualenvs
+
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias vi='vim'
