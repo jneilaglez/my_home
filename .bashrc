@@ -9,6 +9,7 @@
 
 # virtualenv variable
 export WORKON_HOME=~/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
 
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
