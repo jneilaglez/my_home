@@ -41,7 +41,7 @@ function git_color ()
             echo -e "\e[1;31m"
         else
             #if [[ "$STATUS" =~ .*'Your branch is ahead'.* ]]
-            if [[ "$STATUS" =~ .*'Tu rama esta adelantada'.* ]]
+            if [[ "$STATUS" =~ .*'Tu rama está adelantada'.* ]]
             then
                 # yellow if need to push
                 echo -e "\e[1;33m"
