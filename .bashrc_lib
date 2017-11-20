@@ -29,16 +29,19 @@ function git_color ()
 {
     # Get the status of the repo and chose a color accordingly
     local STATUS=`git status 2>&1`
-    if [[ "$STATUS" == *'Not a git repository'* ]]
+    #if [[ "$STATUS" == *'Not a git repository'* ]]
+    if [[ "$STATUS" == *'No es un repositorio git'* ]]
     then
         echo -e "\e[0;37m"
     else
-        if [[ "$STATUS" != *'working tree clean'* ]]
+        #if [[ "$STATUS" != *'working tree clean'* ]]
+        if [[ "$STATUS" != *'el arbol de trabajo esta limpio'* ]]
         then
             # red if need to commit
             echo -e "\e[1;31m"
         else
-            if [[ "$STATUS" =~ .*'Your branch is ahead'.* ]]
+            #if [[ "$STATUS" =~ .*'Your branch is ahead'.* ]]
+            if [[ "$STATUS" =~ .*'Tu rama esta actualizada'.* ]]
             then
                 # yellow if need to push
                 echo -e "\e[1;33m"
