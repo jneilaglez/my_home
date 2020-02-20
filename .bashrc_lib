@@ -35,7 +35,7 @@ function git_color ()
         echo -e "\e[0;37m"
     else
         #if [[ "$STATUS" != *'working tree clean'* ]]
-        if [[ "$STATUS" != *'trabajo esta limpio'* ]]
+        if [[ "$STATUS" != *'trabajo está limpio'* ]]
         then
             # red if need to commit
             echo -e "\e[1;31m"
